@@ -4,7 +4,7 @@
 ![Stack](https://img.shields.io/badge/stack-HTML%20%7C%20CSS%20%7C%20JS%20%7C%20AzureFunctions-blue.svg)
 ![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)
 
-> 365-day, GitHub-style habit grid built in vanilla JS with `localStorage`, PNG/CSV export, and a lightweight backup/restore flow via Azure Function → Azure Blob Storage. No full backend server.
+> Habit Heatmap is a small front-end–first project where I rebuilt a GitHub-style contribution grid in vanilla HTML/CSS/JavaScript, wired it to localStorage for offline habit tracking, and then added PNG/CSV export plus a lightweight backup/restore flow using an Azure HTTP Function and Azure Blob Storage. It’s designed to be easy to demo and easy to explain in interviews: UI state lives in the browser, and the cloud piece is a single function that just stores JSON snapshots in Blob.
 
 ---
 
@@ -16,10 +16,6 @@
 - Habit data persisted in the browser via **`localStorage`**
 - Export to **PNG** (via `html2canvas`) and **CSV**
 - A minimal **Azure HTTP Function** that saves/loads JSON snapshots to **Blob Storage**
-
-It matches this CV line:
-
-> *“Created a GitHub-style habit grid in vanilla JS with localStorage so users can track habits and streaks visually. Added PNG/CSV export and a ‘Back up’ flow via Azure Function → Blob, giving save/restore without running a full backend.”*
 
 ---
 
@@ -154,3 +150,4 @@ So backup/restore will work as soon as the function is running.
 ## 📜 License
 
 This project is licensed under the MIT License – see the LICENSE file for details.
+
