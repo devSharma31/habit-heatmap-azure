@@ -1,0 +1,11 @@
+# Python / Azure Functions
+.venv/
+__pycache__/
+*.pyc
+
+# Node / tooling
+node_modules/
+
+# OS / editor
+.DS_Store
+.vscode/

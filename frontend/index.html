@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Habit Heatmap — Dev’s 365-day tracker</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- html2canvas for PNG export -->
+  <script
+    src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"
+    defer
+  ></script>
+
+  <!-- Local config (AZURE_FUNCTION_URL). You create config.js from config.example.js -->
+  <script src="config.js" defer></script>
+
+  <!-- Main app logic (grid, localStorage, backup, theme toggle) -->
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <div class="page-shell">
+    <!-- Top bar / branding -->
+    <header class="top-bar">
+      <div class="brand">
+        <div class="brand-mark">HH</div>
+        <div class="brand-text">
+          <div class="brand-title">Habit Heatmap</div>
+          <div class="brand-subtitle">
+            365-day habit grid with localStorage and optional cloud backup.
+          </div>
+        </div>
+      </div>
+
+      <div class="top-actions">
+        <div class="maker-pill" title="Built by Devashish Sharma">
+          <span class="maker-label">crafted by dev</span>
+          <span class="maker-dot"></span>
+          <span class="maker-version">v1.0</span>
+        </div>
+
+        <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle theme">
+          <span class="theme-toggle-icon">🌙</span>
+          <span class="theme-toggle-text">Dark</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main layout: grid on the left, explainer panel on the right -->
+    <main class="layout">
+      <!-- Main panel: summary + controls + grid -->
+      <section class="panel panel-main">
+        <!-- Summary chips -->
+        <section class="summary-row">
+          <div class="summary-chip">
+            <span class="summary-chip-label">Year</span>
+            <span id="summary-year" class="summary-chip-value">—</span>
+          </div>
+          <div class="summary-chip">
+            <span class="summary-chip-label">Completed days</span>
+            <span id="summary-completed" class="summary-chip-value">0</span>
+          </div>
+          <div class="summary-chip">
+            <span class="summary-chip-label">Current streak</span>
+            <span id="summary-streak" class="summary-chip-value">0</span>
+            <span class="summary-chip-suffix">days</span>
+          </div>
+        </section>
+
+        <!-- Controls -->
+        <section class="controls-row">
+          <button id="btn-download-png" class="btn btn-primary">
+            <span class="btn-label">Download PNG</span>
+          </button>
+
+          <button id="btn-download-csv" class="btn btn-ghost">
+            <span class="btn-label">Download CSV</span>
+          </button>
+
+          <div class="controls-divider"></div>
+
+          <button id="btn-backup" class="btn btn-outline">
+            <span class="dot-indicator dot-online"></span>
+            <span class="btn-label">Back up to cloud</span>
+          </button>
+
+          <button id="btn-restore" class="btn btn-outline">
+            <span class="dot-indicator"></span>
+            <span class="btn-label">Restore from cloud</span>
+          </button>
+        </section>
+
+        <!-- Grid wrapper (used for PNG export) -->
+        <section id="grid-wrapper" class="grid-card">
+          <div class="grid-card-header">
+            <div>
+              <h2 class="grid-title">Yearly Habit Grid</h2>
+              <p class="grid-subtitle">
+                Click on a day to toggle completion. Your data stays in this browser unless you back it up.
+              </p>
+            </div>
+          </div>
+
+          <!-- Legend -->
+          <div class="grid-legend">
+            <div class="legend-item">
+              <span class="legend-swatch legend-empty"></span>
+              <span class="legend-label">Not done</span>
+            </div>
+            <div class="legend-item">
+              <span class="legend-swatch legend-done"></span>
+              <span class="legend-label">Done</span>
+            </div>
+            <div class="legend-item">
+              <span class="legend-swatch legend-today"></span>
+              <span class="legend-label">Today</span>
+            </div>
+          </div>
+
+          <!-- Grid goes here via JS -->
+          <div id="grid" class="grid"></div>
+        </section>
+      </section>
+
+      <!-- Side panel: explainer, architecture, privacy -->
+      <aside class="panel panel-side">
+        <section class="side-section">
+          <h3 class="side-title">How this tracker works</h3>
+          <ol class="side-list">
+            <li>Pick a day and click the square to mark it as done.</li>
+            <li>Your progress is stored in <code>localStorage</code> for this year.</li>
+            <li>Use PNG/CSV export when you want to share or analyse the data.</li>
+            <li>Optionally send a JSON backup to an Azure Function → Blob.</li>
+          </ol>
+        </section>
+
+        <section class="side-section">
+          <h4 class="side-subtitle">Architecture at a glance</h4>
+          <div class="arch-diagram">
+            <span class="arch-node">Browser UI</span>
+            <span class="arch-arrow">→</span>
+            <span class="arch-node">Azure Function</span>
+            <span class="arch-arrow">→</span>
+            <span class="arch-node">Blob Storage</span>
+          </div>
+          <p class="side-note">
+            The frontend never talks directly to storage. The function validates input and writes one JSON
+            blob per year, keeping the design simple and easy to reason about in interviews.
+          </p>
+        </section>
+
+        <section class="side-section">
+          <h4 class="side-subtitle">Privacy notes</h4>
+          <p class="side-note">
+            By default everything stays in your browser. Cloud backup is manual on purpose, so you always
+            know when data is leaving your device.
+          </p>
+        </section>
+      </aside>
+    </main>
+
+    <footer class="footer">
+      <span class="footer-left">
+        Built in vanilla <strong>HTML/CSS/JS</strong> with a tiny Azure Function + Blob backup.
+      </span>
+      <span class="footer-right">
+        devashish sharma · habit heatmap · v1
+      </span>
+    </footer>
+  </div>
+</body>
+</html>
