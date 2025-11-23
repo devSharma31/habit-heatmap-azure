@@ -19,6 +19,12 @@
 
 ---
 
+## 📸 Screenshots
+
+### Main UI: 
+![Habit Heatmap – light mode](assets/screenshots/habit-heatmap.png)
+---
+
 ## 🧱 Tech Stack
 
 - **Frontend:** HTML, CSS, JavaScript (vanilla)
@@ -151,5 +157,6 @@ So backup/restore will work as soon as the function is running.
 ## 📜 License
 
 This project is licensed under the MIT License – see the LICENSE file for details.
+
 
 
