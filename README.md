@@ -146,8 +146,10 @@ So backup/restore will work as soon as the function is running.
   - Back up to cloud → save current year’s state to Blob
   - Restore from cloud → pull back the latest snapshot for that year
 
+---
 
 ## 📜 License
 
 This project is licensed under the MIT License – see the LICENSE file for details.
+
 
