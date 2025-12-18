@@ -7,7 +7,14 @@
 > Habit Heatmap is a small front-end–first project where I rebuilt a GitHub-style contribution grid in vanilla HTML/CSS/JavaScript, wired it to localStorage for offline habit tracking, and then added PNG/CSV export plus a lightweight backup/restore flow using an Azure HTTP Function and Azure Blob Storage. It’s designed to be easy to demo and easy to explain in interviews: UI state lives in the browser, and the cloud piece is a single function that just stores JSON snapshots in Blob.
 
 ---
+## Modernization track (branch: `frontend-upgrade`)
+This repo includes an incremental frontend modernization (no rewrite):
+- Vite dev/build workflow (`npm run dev`, `npm run build`)
+- TypeScript entry + typed utilities
+- SCSS structure
+- Jest unit tests (`npm test`)
 
+---
 ## 🌐 Overview
 
 **Habit Heatmap** is a small, interview-friendly project that shows:
@@ -124,22 +131,27 @@ From the frontend/ folder:
 cd ../frontend
 ```
 
-Any static server works (VS Code Live Server, serve, http-server, etc.). Example with serve:
+### Option A — main branch (static)
+The `main` branch runs as a static site. Open `frontend/index.html` using any static server (e.g., VS Code Live Server).
+
+### Option B — `frontend-upgrade` branch (Vite + TS + SCSS + Jest)
+```bash
+git checkout frontend-upgrade
+cd frontend
+npm install
+npm run dev
 ```
-npm install -g serve
-serve .
+### Build
+```
+cd frontend
+npm run build
 ```
 
-Then open the URL it prints (e.g. http://localhost:3000).
-
-frontend/config.js already points to:
+### Tests
 ```
-const AZURE_FUNCTION_URL = "http://localhost:7072/api/HabitSync";
+cd frontend
+npm test
 ```
-So backup/restore will work as soon as the function is running.
-
----
-
 
 ## 🕹️ How to Use
 
@@ -157,6 +169,7 @@ So backup/restore will work as soon as the function is running.
 ## 📜 License
 
 This project is licensed under the MIT License – see the LICENSE file for details.
+
 
 
 
